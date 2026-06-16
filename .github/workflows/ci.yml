@@ -1,0 +1,28 @@
+name: CI - README Grammar Check
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  readme-grammar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install markdownlint-cli
+        run: npm install -g markdownlint-cli
+
+      - name: Run markdownlint on README
+        run: |
+          if [ -f README.md ]; then
+            echo "Running markdownlint on README.md"
+            markdownlint README.md
+          else
+            echo "README.md not found, skipping."
+          fi
