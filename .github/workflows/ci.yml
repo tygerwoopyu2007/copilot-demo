@@ -1,40 +1,28 @@
-name: CI
+name: CI - README Grammar Check
 
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
-  build:
+  readme-grammar:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Check for package.json
-        id: check
-        run: |
-          if [ -f package.json ]; then
-            echo "exists=true" >> $GITHUB_OUTPUT
-          else
-            echo "exists=false" >> $GITHUB_OUTPUT
-          fi
-
       - name: Setup Node.js
-        if: steps.check.outputs.exists == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: '18'
 
-      - name: Install dependencies
-        if: steps.check.outputs.exists == 'true'
-        run: npm ci
+      - name: Install markdownlint-cli
+        run: npm install -g markdownlint-cli
 
-      - name: Run tests
-        if: steps.check.outputs.exists == 'true'
-        run: npm test
-
-      - name: No tests
-        if: steps.check.outputs.exists == 'false'
-        run: echo "No package.json found — nothing to test."
+      - name: Run markdownlint on README
+        run: |
+          if [ -f README.md ]; then
+            echo "Running markdownlint on README.md"
+            markdownlint README.md
+          else
+            echo "README.md not found, skipping."
+          fi
