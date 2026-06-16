@@ -1,46 +1,33 @@
-# copilot-demo
 
-GitHub Copilot CLI のデモプロジェクト
+  copilot-demo
 
-## 概要
-このリポジトリは GitHub Copilot CLI（gh copilot）の動作確認用デモプロジェクトです。Copilot CLI による提案受け取りや、README・コードの雛形生成を試す目的で作成しました。
+  GitHub Copilot CLI のデモプロジェクト。Copilot CLI を使った提案受け取りや、README・ワークフローの動作確認を目的としています。
 
-## 前提条件
-- GitHub CLI（gh）がインストールされていること
-- Copilot 拡張が有効になっていること（必要に応じて `gh extension install github/gh-copilot`）
-- GitHub にログインしていること（`gh auth login`）
+  概要
 
-## 使い方
-1. プロジェクトディレクトリへ移動:
-   ```powershell
+  このリポジトリは GitHub Copilot CLI（gh copilot）の動作確認用です。README の自動生成や CI ワークフローの検証に利用してください。
+
+  前提条件
+
+   - GitHub CLI（gh）がインストールされていること
+   - Copilot 拡張が利用可能であること（必要に応じて gh extension install github/gh-copilot）
+   - GitHub にログインしていること（gh auth login）
+
+  使い方
+
+   1. リポジトリに移動:
    cd C:\Users\kikir\copilot-demo
-   ```
-2. Copilot に README 作成を提案する例:
-   ```powershell
-   gh copilot suggest "このプロジェクトのREADMEを書いて。内容は『GitHub Copilot CLIのデモプロジェクト』で、使い方も書いて"
-   ```
-3. 提案を保存する方法（例）:
-   - クリップボードから上書き保存:
-     ```powershell
-     Get-Clipboard | Set-Content -Path .\README.md -Encoding UTF8 -Force
-     ```
-   - PowerShell のヒアストリングで直接書く:
-     ```powershell
-     @"
-     （提案された README の本文をここに貼る）
-     "@ | Set-Content -Path .\README.md -Encoding UTF8 -Force
-     ```
+   2. Copilot に提案を頼む例:
+   gh copilot suggest "このプロジェクトのREADMEを書いてください。内容は『GitHub Copilot CLIのデモプロジェクト』で、使い方も書いてください。"
 
-## Git にコミットする
-リポジトリが未初期化の場合:
-```powershell
-git init --initial-branch=main
-git add README.md
-git commit -m "Add README for copilot-demo"
-```
+  CI
 
-## CI（簡単な説明）
-このリポジトリには README の文法チェックを行う GitHub Actions ワークフロー（`.github/workflows/ci.yml`）を追加しています。
+   - .github/workflows/ci.yml に README の文法チェック（markdownlint）を行うワークフローを追加しています。
 
-## ライセンス
-このデモは自由に利用できます。手順や説明は参考としてご活用ください。
+  貢献
+
+  バグ報告や改善提案は Issue を作成してください。プルリク歓迎です。
+
+  ライセンス
+
+  自由に利用してください。
